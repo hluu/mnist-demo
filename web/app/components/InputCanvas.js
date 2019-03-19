@@ -66,9 +66,9 @@ class InputCanvas extends React.Component {
 
     this.drawLine(previousPosition, currentPosition);
 
-    const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
-    this.props.onInputUpdated(toPixelIntensities(imageData), 224);
-
+    // const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+    // this.props.onInputUpdated(toPixelIntensities(imageData), 448);
+    console.log("AHHHHHHHH")
     this.setState({currentPosition: currentPosition});
   }
 
@@ -122,7 +122,7 @@ class InputCanvas extends React.Component {
             <canvas id="input-canvas"
                     className="input-canvas"
                     ref="inputCanvas"
-                    width={224} height={224}
+                    width={448} height={448}
                     onMouseDown={this.onMouseDown}
                     onMouseMove={this.onMouseMove}
                     onMouseOut={this.onMouseUp}

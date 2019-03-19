@@ -19,29 +19,10 @@ const DigitClassificationDemoComponent = React.createClass({
                      onInputUpdated={this.props.onInputUpdated}
                      onInputCleared={this.props.onInputCleared}/>
 
-        <ConnectorHorizontal width={300} className="input-to-rescaled-connector"/>
-        <div className="rescaled-column">
-          <div className="rescaled-title">
-            Neural Network Input (28 x 28 pixels)
-          </div>
-          <RescaledImage imageData={this.props.rescaled_input} size={28}/>
-          <ConnectorVertical height={250} className="input-output-connector"/>
-        </div>
-      </div>
-      <ConnectorHorizontal width={427} className="output-connector"/>
-      <div>
-        <ConnectorEnd className="output-connector-end">
-          <ConnectorVertical height={15}/>
-        </ConnectorEnd>
-        <ConnectorEnd className="output-connector-end">
-          <ConnectorVertical height={15}/>
-        </ConnectorEnd>
       </div>
       <div className="output-row">
-        <Results title="Convolutional Neural Network" results={this.props.convolutional}/>
-        <Results title="Fully Connected Neural Network" results={this.props.fully_connected}/>
+        <Results title="Predictions" results={this.props.convolutional}/>
       </div>
-      <div className="github-link"><a href="https://github.com/ShafeenTejani/mnist-demo" target="_blank">See the code on GitHub</a></div>
     </main>;
   }
 });

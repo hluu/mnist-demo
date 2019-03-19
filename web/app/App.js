@@ -9,7 +9,6 @@ const App = React.createClass({
   render: function () {
     return (<div className="app-wrapper">
               <div className="content">
-                <Sidebar/>
                 <DigitClassificationDemo/>
               </div>
             </div>)
