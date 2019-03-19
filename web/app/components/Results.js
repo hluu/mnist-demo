@@ -42,21 +42,12 @@ export const Results = React.createClass({
   render: function () {
 
     if (this.props.results == null) {
-      return <div className="classification-results" style={{width: 306}}>
-        <div style={{marginBottom: "1em"}}>
-          <i className="fa fa-share-alt" aria-hidden="true"></i>
-          <span style={{marginLeft: "0.5em"}}>{this.props.title}</span>
-        </div>
-      </div>;
+      return <div className="classification-results" style={{width: 306}}></div>;
     }
 
     const classificationValue = maxClassification(this.props.results);
 
     return <div className="classification-results">
-      <div style={{marginBottom: "1em"}}>
-        <i className="fa fa-share-alt" aria-hidden="true"></i>
-        <span style={{marginLeft: "0.5em"}}>{this.props.title}</span>
-      </div>
       <div className="classification-results-chart"
            style={{display: "inline-block"}}>{
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {

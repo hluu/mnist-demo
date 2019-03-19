@@ -43,6 +43,9 @@ def index():
 
 @app.route('/api/mnist/evaluate', methods=['POST'])
 def evaluate():
+    print("REQUEST JSON", request.json)
+
+
     input = np.array([request.json], dtype=np.float32)
     outputFC = fully_connected_network(input)
     outputConv = convolutional_network(input)

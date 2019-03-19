@@ -22,6 +22,19 @@
 	min-width: 780px;
 }
 
+.content-box .content-row {
+	display: inline-block;
+}
+
+.content-row {
+	margin: 1em 1em 1em 12em;
+}
+
+.predictions-title {
+	vertical-align: top;
+	text-align: center;
+}
+
 .sidebar {
 	flex: 0 0 250px;
 	order: -1;
@@ -42,13 +55,13 @@
 	}
 }
 
+#predictions-content {
+	vertical-align: top;
+}
+
 .clear-canvas {
 	vertical-align: top;
 	position: absolute;
-}
-
-.input-row {
-	display: flex;
 }
 
 .rescaled-column {
@@ -76,7 +89,7 @@
 
 .classification-results {
 	display: inline-block;
-	margin-top: 10px;
+	margin-top: 100px;
 	width: 306px;
 }
 
@@ -84,9 +97,6 @@
 	width: 200px;
 }
 
-.classification-results:nth-child(2) {
-	margin-left: 127px;
-}
 
 .output-connector-end {
 	display: inline-block;

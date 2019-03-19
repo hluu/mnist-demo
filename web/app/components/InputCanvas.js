@@ -3,6 +3,7 @@ import React from "react";
 import { findDOMNode } from 'react-dom';
 
 function toPixelIntensities(imageData) {
+  console.log(imageData.length)
   const pixelIntensities = Array(imageData.length / 4); //RGBA
 
   for (let i=0; i < imageData.length; i=i+4) {
@@ -65,17 +66,14 @@ class InputCanvas extends React.Component {
     const currentPosition = this.getCursorPosition(e);
 
     this.drawLine(previousPosition, currentPosition);
-
-    // const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
-    // this.props.onInputUpdated(toPixelIntensities(imageData), 448);
-    console.log("AHHHHHHHH")
     this.setState({currentPosition: currentPosition});
   }
 
   onMouseUp(e) {
     if (this.state.drawing) {
       this.setState({drawing: false});
-      this.props.onInputReady();
+      const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+      this.props.onInputReady(toPixelIntensities(imageData));
     }
   }
 

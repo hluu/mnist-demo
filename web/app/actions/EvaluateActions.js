@@ -7,6 +7,9 @@ export const CONVOLUTIONAL_EVALUATED = 'CONVOLUTIONAL_EVALUATED';
 
 export function evaluate(input) {
   return (dispatch) => {
+    console.log("INPUTTTT")
+    console.log(input)
+    console.log(JSON.stringify(input))
     ajax({
       url: '/api/mnist/evaluate',
       method: 'POST',

@@ -1,10 +1,8 @@
 //Copyright (c) 2016-2017 Shafeen Tejani. Released under GPLv3.
-export const INPUT_UPDATED = 'INPUT_UPDATED';
 export const INPUT_CLEARED = 'INPUT_CLEARED';
-export const RESCALED_INPUT_UPDATED = 'RESCALED_INPUT_UPDATED';
 
 
-function rescaleImagePixels(pixelIntensities, toSize) {
+export function rescaleImagePixels(pixelIntensities, toSize) {
   const fromSize = parseInt(Math.sqrt(pixelIntensities.length));
   const scale = fromSize / toSize;
 
@@ -24,15 +22,9 @@ function rescaleImagePixels(pixelIntensities, toSize) {
     }
     rescaledPixelIntensities[i] = pixelSum / (255.0 * scale**2);
   }
+  console.log(rescaledPixelIntensities)
   return rescaledPixelIntensities;
 }
-
-export function inputUpdated(imageData, size) {
-  return (dispatch) => {
-    dispatch({ type: INPUT_UPDATED, payload: { data: imageData, size: size}});
-    dispatch({ type: RESCALED_INPUT_UPDATED, payload: rescaleImagePixels(imageData, 28)})
-  }
-};
 
 export function inputCleared() {
   return (dispatch) => {

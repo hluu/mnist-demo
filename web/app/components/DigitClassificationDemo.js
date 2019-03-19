@@ -9,19 +9,25 @@ import Results from './Results';
 import InputCanvas from './InputCanvas';
 import RescaledImage from './RescaledImage';
 import { evaluate } from '../actions/EvaluateActions';
-import { inputUpdated, inputCleared, inputReady } from '../actions/InputActions';
+import { rescaleImagePixels, inputCleared, inputReady } from '../actions/InputActions';
 
 const DigitClassificationDemoComponent = React.createClass({
   render: function() {
     return <main className="main-content">
-      <div className="input-row">
-        <InputCanvas onInputReady={() => this.props.evaluate(this.props.rescaled_input)}
-                     onInputUpdated={this.props.onInputUpdated}
-                     onInputCleared={this.props.onInputCleared}/>
+      <div className="content-box">
+        <div className="content-row">
+          <InputCanvas onInputReady={(imageData) => {
+                          this.props.evaluate(imageData)
+                        }}
+                       onInputCleared={this.props.onInputCleared}/>
 
-      </div>
-      <div className="output-row">
-        <Results title="Predictions" results={this.props.convolutional}/>
+        </div>
+        <div className="content-row" id="predictions-content">
+          <div className="predictions-title" style={{marginBottom: "1em"}}>
+            <span>{"Predictions"}</span>
+          </div>
+          <Results results={this.props.convolutional}/>
+        </div>
       </div>
     </main>;
   }
@@ -32,8 +38,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => { return {
-  evaluate: function(input) { dispatch(evaluate(input)); },
-  onInputUpdated: function(imageData, size) { dispatch(inputUpdated(imageData, size)); },
+  evaluate: function(imageData) { dispatch(evaluate(rescaleImagePixels(imageData, 28))); },
   onInputCleared: function() { dispatch(inputCleared()); }
 }};
 
