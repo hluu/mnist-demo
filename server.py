@@ -5,10 +5,17 @@
     An API to classify 28x28 pixel images according to pre-trained
     MNIST neural networks
 """
+import os
+
 import tensorflow as tf
 import numpy as np
 
 from networks import variables
+
+DEFAULT_MODEL_SERVER_URL = "http://127.0.0.1:5000"
+
+model_server_url = os.environ.get("MODEL_SERVER_URL", DEFAULT_MODEL_SERVER_URL)
+model_invocation_endpoint = "{server_url}/invocations".format(server_url=model_server_url)
 
 x = tf.placeholder("float", [None, 784])
 
@@ -43,8 +50,13 @@ def index():
 
 @app.route('/api/mnist/evaluate', methods=['POST'])
 def evaluate():
-    print("REQUEST JSON", request.json)
+    with open("/tmp/data.json", "w") as f:
+        import json
+        json.dump(request.json, f)
 
+
+    import requests
+    response = requests.post(model_invocation_endpoint, json=request.json)
 
     input = np.array([request.json], dtype=np.float32)
     outputFC = fully_connected_network(input)

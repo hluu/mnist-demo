@@ -24,37 +24,4 @@ export function evaluate(input) {
       }
     );
   }
-}
-
-export function evaluateFullyConnected(input) {
-  return (dispatch) => {
-    ajax({
-      url: '/api/mnist/fully_connected',
-      method: 'POST',
-      body: JSON.stringify(input),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }}, function(code, responseText) {
-        dispatch({ type: FULLY_CONNECTED_EVALUATED, payload: JSON.parse(responseText).results})
-      }
-    );
-  }
 };
-
-
-export function evaluateConvolutional(input) {
-  return (dispatch) => {
-    ajax({
-      url: '/api/mnist/convolutional',
-      method: 'POST',
-      body: JSON.stringify(input),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }}, function(code, responseText) {
-        dispatch({ type: CONVOLUTIONAL_EVALUATED, payload: JSON.parse(responseText).results})
-      }
-    );
-  }
-}
