@@ -50,18 +50,20 @@ def index():
 
 @app.route('/api/mnist/evaluate', methods=['POST'])
 def evaluate():
+    import pandas as pd
+    import numpy as np
     with open("/tmp/data.json", "w") as f:
         import json
-        json.dump(request.json, f)
-
+        input_df = pd.DataFrame([np.array(request.json)])
+        input_json = input_df.to_json(orient="split")
 
     import requests
-    response = requests.post(model_invocation_endpoint, json=request.json)
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(model_invocation_endpoint, data=input_json, headers=headers)
+    print(response.text)
 
-    input = np.array([request.json], dtype=np.float32)
-    outputFC = fully_connected_network(input)
-    outputConv = convolutional_network(input)
-    return jsonify(fully_connected=dict(enumerate(outputFC)),convolutional=dict(enumerate(outputConv)))
+    output = dict(enumerate(json.loads(response.text)[0]))
+    return jsonify(fully_connected=output,convolutional=output)
 
 @app.route('/api/mnist/fully_connected', methods=['POST'])
 def fully_connected():
