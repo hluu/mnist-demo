@@ -9,5 +9,6 @@ COPY . /server
 
 WORKDIR /server
 
-# RUN npm run build && npm run gunicorn
+RUN npm install
+RUN npm run build && npm run gunicorn
 
