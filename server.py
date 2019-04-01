@@ -26,15 +26,27 @@ def index():
 def evaluate():
     import pandas as pd
     import numpy as np
-    with open("/tmp/data.json", "w") as f:
-        import json
-        input_df = pd.DataFrame([np.array(request.json)])
-        input_json = input_df.to_json(orient="split")
+    import json
+    input_df = pd.DataFrame([np.array(request.json)])
+    input_json = input_df.to_json(orient="split")
+    response_text = _query_rest_endpoint(
+        input_json=input_json, endpoint_address=model_invocation_endpoint)
+    output = dict(enumerate(json.loads(response_text)[0]))
+    return jsonify(fully_connected=output,convolutional=output)
 
+def _query_rest_endpoint(input_json, endpoint_address):
     import requests
     headers = {'Content-type': 'application/json'}
-    response = requests.post(model_invocation_endpoint, data=input_json, headers=headers)
-    print(response.text)
+    response = requests.post(endpoint_address, data=input_json, headers=headers)
+    return response.text
 
-    output = dict(enumerate(json.loads(response.text)[0]))
-    return jsonify(fully_connected=output,convolutional=output)
+def _query_sagemaker_endpoint(input_json, endpoint_name):
+    import boto3
+    client = boto3.session.Session().client("sagemaker-runtime", "us-west-2")
+    response = client.invoke_endpoint(
+      EndpointName=endpoint_name,
+      Body=input_json,
+      ContentType='application/json; format=pandas-split',
+    )
+    preds = response['Body'].read().decode("ascii")
+    return preds

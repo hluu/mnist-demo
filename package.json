@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "gunicorn": "gunicorn $GUNICORN_PARAMS server:app",
+    "gunicorn": "gunicorn -b 0.0.0.0:8000 $GUNICORN_PARAMS server:app",
     "dev": "webpack-dev-server --config ./webpack-dev.config.js --hot --progress --colors --content-base build",
     "build": "rm build/*; webpack --config ./webpack-prod.config.js --progress --colors",
     "test": "NODE_ENV=test node_modules/mocha/bin/mocha --opts ./web/mocha.opts --recursive ./web/test",
